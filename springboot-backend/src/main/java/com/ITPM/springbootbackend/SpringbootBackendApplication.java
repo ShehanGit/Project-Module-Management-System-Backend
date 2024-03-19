@@ -33,5 +33,6 @@ public class SpringbootBackendApplication implements CommandLineRunner {
 		exams1.setProgress2(4000L);
 		examRepository.save(exams);
 
+
 	}
 }
