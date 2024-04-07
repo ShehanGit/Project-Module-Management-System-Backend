@@ -19,6 +19,20 @@ public class SpringbootBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		Exams exams = new Exams();
+		exams.setName("Kamal");
+		exams.setProposal(10000L);
+		exams.setProgress1(2000L);
+		exams.setProgress2(4000L);
+		examRepository.save(exams);
+
+		Exams exams1 = new Exams();
+		exams1.setName("Sunil");
+		exams1.setProposal(11000L);
+		exams1.setProgress1(2000L);
+		exams1.setProgress2(4000L);
+		examRepository.save(exams);
+
 
 	}
 }
