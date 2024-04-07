@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/exams")
 public class ExamController {
@@ -46,13 +45,10 @@ public class ExamController {
         Exams updateExam = examRepository.findById(id.longValue()).orElseThrow(() -> new ResourseNotFoundExeption("Exam not exist with id: " + id));
 
         updateExam.setName(examDetails.getName());
-        updateExam.setStudentId(examDetails.getStudentId());
         updateExam.setProposal(examDetails.getProposal());
         updateExam.setProgress1(examDetails.getProgress1());
         updateExam.setProgress2(examDetails.getProgress2());
-        updateExam.setFinalPresentations(examDetails.getFinalPresentations());
 
-        //studentId
         examRepository.save(updateExam);
 
         return ResponseEntity.ok(updateExam);

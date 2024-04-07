@@ -18,16 +18,12 @@ public class Exams {
     private Long ID;
     @Column(name = "name")
     private String name;
-    @Column(name = "studentId")
-    private String studentId;
     @Column(name = "proposal")
     private Long proposal;
     @Column(name = "progress1")
     private Long progress1;
     @Column(name = "progress2")
     private Long progress2;
-    @Column(name = "finalPresentations")
-    private Long finalPresentations;
 
 
 }
