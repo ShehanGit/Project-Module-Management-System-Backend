@@ -19,30 +19,32 @@ public class MarksServiceImpl implements MarksService {
     @Override
     public Marks addMarks() {
 
-           Marks marks = new Marks();
-           marks.setGroupId("IT001");
-           marks.setStudentId("001");
-           marks.setStudentName("anjana");
-           marks.setProposal(20);
-           marks.setProgress1(49);
-           marks.setProgress2(34);
-           marks.setFinalPresentation(56);
-           marks.setStatusDoc(78);
-           marks.setLogBook(56);
-           marks.setProposalDocument(47);
-           marks.setStatusDoc2(44);
-           marks.setFinalThesis(43);
-           marks.setTotalMarks(89);
-           marks.setPassFailStatus("pass");
+        Marks marks = new Marks();
+        marks.setGroupId("IT001");
+        marks.setStudentId("001");
+        marks.setStudentName("saman");
+        marks.setProposal(20);
+        marks.setProgress1(49);
+        marks.setProgress2(34);
+        marks.setFinalPresentation(56);
+        marks.setStatusDoc(78);
+        marks.setLogBook(56);
+        marks.setProposalDocument(47);
+        marks.setStatusDoc2(44);
+        marks.setFinalThesis(43);
+        marks.setTotalMarks(89);
+        marks.setPassFailStatus("pass");
 
-            CommentExaminer commentExaminer = new CommentExaminer();
-            commentExaminer.setGroupId(marks.getGroupId());
-            commentExaminer.setProposal("good one");
-            commentExaminer.setProgress1("nice");
-            commentExaminer.setProgress2("nice work");
-            commentExaminer.setFinalPresentation("wonderfull");
-            marks.getCommentExaminers().add(commentExaminer);
-            commentExaminer.setMarks(marks);
+        
+
+        CommentExaminer commentExaminer = new CommentExaminer();
+        commentExaminer.setGroupId(marks.getGroupId());
+        commentExaminer.setProposal("good one");
+        commentExaminer.setProgress1("nice");
+        commentExaminer.setProgress2("nice work");
+        commentExaminer.setFinalPresentation("wonderfull");
+        marks.getCommentExaminers().add(commentExaminer);
+        commentExaminer.setMarks(marks);
 
         CommentSupervisor commentSupervisor = new CommentSupervisor();
         commentSupervisor.setGroupId(marks.getGroupId());
@@ -54,13 +56,11 @@ public class MarksServiceImpl implements MarksService {
         marks.getCommentSupervisors().add(commentSupervisor);
         commentSupervisor.setMarks(marks);
 
-
-           return repository.save(marks);
-
+        return repository.save(marks);
     }
 
     @Override
     public List<Marks> getMarksByGroupId(String groupId) {
-        return repository.findByGroupId(groupId);
+        return repository.findByGroupIdWithComments(groupId);
     }
 }
