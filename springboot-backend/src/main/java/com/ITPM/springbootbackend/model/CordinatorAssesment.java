@@ -3,6 +3,8 @@ package com.ITPM.springbootbackend.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Blob;
+
 @Entity
 @Data
 public class CordinatorAssesment {

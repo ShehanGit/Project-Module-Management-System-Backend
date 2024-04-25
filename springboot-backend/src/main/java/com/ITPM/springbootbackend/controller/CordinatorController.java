@@ -2,6 +2,7 @@ package com.ITPM.springbootbackend.controller;
 
 import com.ITPM.springbootbackend.dto.AssesmentRequest;
 import com.ITPM.springbootbackend.dto.UserRequest;
+import com.ITPM.springbootbackend.exception.AssessmentUploadException;
 import com.ITPM.springbootbackend.model.CordinatorAssesment;
 import com.ITPM.springbootbackend.model.CordinatorPresentation;
 import com.ITPM.springbootbackend.model.User;
@@ -45,12 +46,12 @@ public class CordinatorController {
     }
 
     @PostMapping("/assessment")
-    public ResponseEntity<?> saveAssessment(@ModelAttribute AssesmentRequest request) {
+    public ResponseEntity<?> saveAssessment(@ModelAttribute AssesmentRequest request) throws AssessmentUploadException {
         try {
             CordinatorAssesment assessment = cordinatorService.save(request);
             return ResponseEntity.ok(assessment);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save assessment");
+        } catch (AssessmentUploadException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 

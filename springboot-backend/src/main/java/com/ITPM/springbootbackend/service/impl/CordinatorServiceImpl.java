@@ -2,6 +2,7 @@ package com.ITPM.springbootbackend.service.impl;
 
 import com.ITPM.springbootbackend.dto.AssesmentRequest;
 import com.ITPM.springbootbackend.dto.UserRequest;
+import com.ITPM.springbootbackend.exception.AssessmentUploadException;
 import com.ITPM.springbootbackend.model.CordinatorAssesment;
 import com.ITPM.springbootbackend.model.CordinatorPresentation;
 import com.ITPM.springbootbackend.model.User;
@@ -76,7 +77,7 @@ public class CordinatorServiceImpl implements CordinatorService {
     }
 
     @Override
-    public CordinatorAssesment save(AssesmentRequest assessmentRequest) {
+    public CordinatorAssesment save(AssesmentRequest assessmentRequest) throws AssessmentUploadException {
         CordinatorAssesment coordinatorAssessment = new CordinatorAssesment();
         coordinatorAssessment.setProjectType(assessmentRequest.getProjectType());
         coordinatorAssessment.setAssesmentName(assessmentRequest.getAssesmentName());
@@ -85,13 +86,10 @@ public class CordinatorServiceImpl implements CordinatorService {
             try {
                 coordinatorAssessment.setAssesment(assessment.getBytes());
             } catch (IOException e) {
-                // Handle the IOException appropriately (e.g., log the error, throw a custom exception)
-                e.printStackTrace();
-                // You can also return null or throw a custom exception here
+                // Throw a custom exception
+                throw new AssessmentUploadException("Failed to save assessment: " + e.getMessage());
             }
         }
         return cordinatorAssesmentRepo.save(coordinatorAssessment);
     }
-
-
 }
