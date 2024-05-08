@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MarksRepository extends JpaRepository<Marks, Long> {
 
     @Query("SELECT m FROM Marks m WHERE m.groupId = :groupId")
     List<Marks> findByGroupId(String groupId);
 
-    @Query("SELECT m FROM Marks m JOIN FETCH m.commentExaminers JOIN FETCH m.commentSupervisors WHERE m.groupId = :groupId")
-    List<Marks> findByGroupIdWithComments(@Param("groupId") String groupId);
+    Optional<Marks> findByGroupIdAndStudentId(String groupId, String studentId);
 }

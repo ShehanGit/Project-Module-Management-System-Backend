@@ -3,9 +3,7 @@ package com.ITPM.springbootbackend.service.impl;
 import com.ITPM.springbootbackend.dto.AssesmentRequest;
 import com.ITPM.springbootbackend.dto.UserRequest;
 import com.ITPM.springbootbackend.exception.AssessmentUploadException;
-import com.ITPM.springbootbackend.model.CordinatorAssesment;
-import com.ITPM.springbootbackend.model.CordinatorPresentation;
-import com.ITPM.springbootbackend.model.User;
+import com.ITPM.springbootbackend.model.*;
 import com.ITPM.springbootbackend.repository.CordinatorAssesmentRepo;
 import com.ITPM.springbootbackend.repository.CordinatorPresentationRepo;
 import com.ITPM.springbootbackend.repository.UserRepository;
@@ -76,6 +74,8 @@ public class CordinatorServiceImpl implements CordinatorService {
         return cordinatorPresentationRepo.save(cordinatorPresentation1);
     }
 
+
+
     @Override
     public CordinatorAssesment save(AssesmentRequest assessmentRequest) throws AssessmentUploadException {
         CordinatorAssesment coordinatorAssessment = new CordinatorAssesment();
@@ -92,4 +92,43 @@ public class CordinatorServiceImpl implements CordinatorService {
         }
         return cordinatorAssesmentRepo.save(coordinatorAssessment);
     }
+
+    @Override
+    public List<CordinatorPresentation> getAllPresentation() {
+        return cordinatorPresentationRepo.findAll();
+    }
+
+    @Override
+    public String deletePresentationById(Long presId) {
+
+        Optional<CordinatorPresentation> sheduleOptional = cordinatorPresentationRepo.findById(presId);
+
+        if(!sheduleOptional.isPresent()){
+            return "schedule not found with id " + presId;
+        }
+
+        cordinatorPresentationRepo.deleteById(presId);
+
+        return "presenatation schedule deleted width id " +presId;
+    }
+
+    @Override
+    public List<CordinatorAssesment> getAllAssessments() {
+        return cordinatorAssesmentRepo.findAll();
+    }
+
+    @Override
+    public String deleteAssessmentById(Long assessmentId) {
+        Optional<CordinatorAssesment> assessmentOptional = cordinatorAssesmentRepo.findById(assessmentId);
+
+        if (!assessmentOptional.isPresent()) {
+            return "Assessment not found with id " + assessmentId;
+        }
+
+        cordinatorAssesmentRepo.deleteById(assessmentId);
+
+        return "Assessment deleted with id " + assessmentId;
+    }
+
+
 }

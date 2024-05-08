@@ -16,8 +16,8 @@ public class CommentExaminer {
     private String progress2;
     private String finalPresentation;
 
-    @ManyToOne
-    @JoinColumn(name = "marks_id")
-    @JsonBackReference
-    private Marks marks;
+//    @ManyToOne
+//    @JoinColumn(name = "marks_id")
+//    @JsonBackReference
+//    private Marks marks;
 }

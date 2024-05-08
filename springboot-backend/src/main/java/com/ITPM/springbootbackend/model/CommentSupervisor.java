@@ -20,9 +20,10 @@ public class CommentSupervisor {
     private String statusDoc2;
     private String finalThesis;
 
+//
+//    @ManyToOne
+//    @JoinColumn(name = "marks_id")
+//    @JsonBackReference
+//    private Marks marks;
 
-    @ManyToOne
-    @JoinColumn(name = "marks_id")
-    @JsonBackReference
-    private Marks marks;
 }

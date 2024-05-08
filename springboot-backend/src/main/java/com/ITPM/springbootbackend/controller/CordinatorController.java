@@ -40,11 +40,6 @@ public class CordinatorController {
         return cordinatorService.userFindById(uID);
     }
 
-    @PostMapping("/presentation")
-    public CordinatorPresentation createPresenation(@RequestBody CordinatorPresentation cordinatorPresentation){
-        return cordinatorService.create(cordinatorPresentation);
-    }
-
     @PostMapping("/assessment")
     public ResponseEntity<?> saveAssessment(@ModelAttribute AssesmentRequest request) throws AssessmentUploadException {
         try {
@@ -53,6 +48,34 @@ public class CordinatorController {
         } catch (AssessmentUploadException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/assessments")
+    public List<CordinatorAssesment> getAllAssessments() {
+        return cordinatorService.getAllAssessments();
+    }
+
+    @DeleteMapping("/assessments/{assessment-id}")
+    public ResponseEntity<String> deleteAssessmentById(@PathVariable("assessment-id") Long assessmentId) {
+        String response = cordinatorService.deleteAssessmentById(assessmentId);
+        return ResponseEntity.ok(response);
+    }
+
+
+
+    @PostMapping("/presentation")
+    public CordinatorPresentation createPresenation(@RequestBody CordinatorPresentation cordinatorPresentation){
+        return cordinatorService.create(cordinatorPresentation);
+    }
+
+    @GetMapping("/presentations")
+    public List<CordinatorPresentation> getAllPresentation(){
+        return cordinatorService.getAllPresentation();
+    }
+
+    @DeleteMapping("/presentations/{presentation-id}")
+    public String deletePresentationById(@PathVariable("presentation-id") Long presId){
+        return cordinatorService.deletePresentationById(presId);
     }
 
 }

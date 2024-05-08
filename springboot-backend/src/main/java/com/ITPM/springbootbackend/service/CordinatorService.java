@@ -5,6 +5,7 @@ import com.ITPM.springbootbackend.dto.UserRequest;
 import com.ITPM.springbootbackend.exception.AssessmentUploadException;
 import com.ITPM.springbootbackend.model.CordinatorAssesment;
 import com.ITPM.springbootbackend.model.CordinatorPresentation;
+import com.ITPM.springbootbackend.model.Marks;
 import com.ITPM.springbootbackend.model.User;
 
 
@@ -20,4 +21,13 @@ public interface CordinatorService {
     CordinatorPresentation create(CordinatorPresentation cordinatorPresentation);
 
     CordinatorAssesment save(AssesmentRequest assesmentRequest) throws AssessmentUploadException;
+
+    List<CordinatorPresentation> getAllPresentation();
+
+    String deletePresentationById(Long presId);
+
+    List<CordinatorAssesment> getAllAssessments();
+    String deleteAssessmentById(Long assessmentId);
+
+
 }

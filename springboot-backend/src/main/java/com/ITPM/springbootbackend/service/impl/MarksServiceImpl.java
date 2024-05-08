@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class MarksServiceImpl implements MarksService {
 
         Marks marks = new Marks();
         marks.setGroupId("IT001");
-        marks.setStudentId("001");
+        marks.setStudentId("004");
         marks.setStudentName("saman");
         marks.setProposal(20);
         marks.setProgress1(49);
@@ -33,34 +34,39 @@ public class MarksServiceImpl implements MarksService {
         marks.setStatusDoc2(44);
         marks.setFinalThesis(43);
         marks.setTotalMarks(89);
-        marks.setPassFailStatus("pass");
+        marks.setPassFailStatus("fail");
 
-        
-
-        CommentExaminer commentExaminer = new CommentExaminer();
-        commentExaminer.setGroupId(marks.getGroupId());
-        commentExaminer.setProposal("good one");
-        commentExaminer.setProgress1("nice");
-        commentExaminer.setProgress2("nice work");
-        commentExaminer.setFinalPresentation("wonderfull");
-        marks.getCommentExaminers().add(commentExaminer);
-        commentExaminer.setMarks(marks);
-
-        CommentSupervisor commentSupervisor = new CommentSupervisor();
-        commentSupervisor.setGroupId(marks.getGroupId());
-        commentSupervisor.setStatusDoc1("super");
-        commentSupervisor.setLogBook("excellent");
-        commentSupervisor.setProposalDoc("nice try");
-        commentSupervisor.setStatusDoc2("wow");
-        commentSupervisor.setFinalThesis("good job");
-        marks.getCommentSupervisors().add(commentSupervisor);
-        commentSupervisor.setMarks(marks);
 
         return repository.save(marks);
     }
 
     @Override
     public List<Marks> getMarksByGroupId(String groupId) {
-        return repository.findByGroupIdWithComments(groupId);
+
+        return repository.findByGroupId(groupId);
+    }
+
+    @Override
+    public Marks updateMarksByGroupId(String groupId ,String studentId,  Marks updatedMarks) {
+
+        Optional<Marks> existingMarks = repository.findByGroupIdAndStudentId(groupId, studentId);
+
+        if (existingMarks.isPresent()) {
+            Marks marks = existingMarks.get();
+            marks.setProposal(updatedMarks.getProposal());
+            marks.setProgress1(updatedMarks.getProgress1());
+            marks.setProgress2(updatedMarks.getProgress2());
+            marks.setFinalPresentation(updatedMarks.getFinalPresentation());
+            marks.setStatusDoc(updatedMarks.getStatusDoc());
+            marks.setLogBook(updatedMarks.getLogBook());
+            marks.setProposalDocument(updatedMarks.getProposalDocument());
+            marks.setStatusDoc2(updatedMarks.getStatusDoc2());
+            marks.setFinalThesis(updatedMarks.getFinalThesis());
+            marks.setTotalMarks(updatedMarks.getTotalMarks());
+
+            return repository.save(marks);
+        }
+
+        return null;
     }
 }

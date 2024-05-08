@@ -30,12 +30,6 @@ public class Marks {
     private String passFailStatus;
 
 
-    @OneToMany(mappedBy = "marks" ,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<CommentExaminer> commentExaminers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "marks", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<CommentSupervisor> commentSupervisors = new ArrayList<>();
 
 }

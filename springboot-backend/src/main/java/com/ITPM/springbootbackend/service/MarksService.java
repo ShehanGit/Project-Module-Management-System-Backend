@@ -8,4 +8,5 @@ public interface MarksService {
 
     Marks addMarks();
     List<Marks> getMarksByGroupId(String groupId);
+    Marks updateMarksByGroupId(String groupId ,String studentId,Marks updatedMarks);
 }

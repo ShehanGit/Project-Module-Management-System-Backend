@@ -23,4 +23,11 @@ public class MarksController {
     public List<Marks> marksFindByGroupId(@PathVariable("group-id") String groupId) {
         return marksService.getMarksByGroupId(groupId);
     }
+
+    @PutMapping("/marks/{group-id}/{student-id}")
+    public Marks updateMarksByGroupIdAndStudentId(@PathVariable("group-id") String groupId,
+                                                  @PathVariable("student-id") String studentId,
+                                                  @RequestBody Marks updatedMarks) {
+        return marksService.updateMarksByGroupId(groupId, studentId, updatedMarks);
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Blob;
+import java.util.Base64;
 
 @Entity
 @Data
@@ -17,4 +18,8 @@ public class CordinatorAssesment {
 
     @Lob
     private byte[] assesment;
+
+    public String getAssesmentBase64() {
+        return Base64.getEncoder().encodeToString(this.assesment);
+    }
 }
